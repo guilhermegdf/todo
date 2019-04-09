@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Resource, Api
-from resources.todo import Todo, TodoComplete, TodoPending
+from resources.todo import Todo, TodoList, TodoChange
 
 app = Flask(__name__)
 
@@ -14,8 +14,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 
 api.add_resource(Todo, '/todo')
-api.add_resource(TodoComplete, '/todo/complete')
-api.add_resource(TodoPending, '/todo/pending')
+api.add_resource(TodoChange, '/todo/<int:id>')
+api.add_resource(TodoList, '/todo/<status>')
 
 if __name__ == '__main__':
     from db import db

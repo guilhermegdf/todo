@@ -31,12 +31,16 @@ class TodoModel(db.Model):
         return TodoModel.query.all()
 
     @staticmethod
+    def get_one(id):
+        return TodoModel.query.get(id)
+
+    @staticmethod
     def get_all_completed():
-        return VolunteerModel.query.filter_by(status=True)
+        return TodoModel.query.filter_by(status=True)
 
     @staticmethod
     def get_all_pending():
-        return VolunteerModel.query.filter_by(status=False)
+        return TodoModel.query.filter_by(status=False)
 
     def __repr(self):
         return '<id {}>'.format(self.id)
@@ -44,4 +48,4 @@ class TodoModel(db.Model):
 class TodoSchema(Schema):
     id = fields.Int(dump_only=True)
     description = fields.Str(required=True)
-    status = fields.Boolean(required=True)
+    status = fields.Boolean(dump_only=True)
