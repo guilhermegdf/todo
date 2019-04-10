@@ -28,7 +28,6 @@ class Todo(Resource):
             return custom_response(error, 400)
 
         res = TodoModel(req)
-        print(res)
         res.save()
         message = {'response':'added successfully'}
         return custom_response(message, 200)
