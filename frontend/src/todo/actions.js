@@ -9,25 +9,22 @@ export const changeDescription = event => ({
 
 })
 
-export const search = (option='') => {
+export const changeOption = event => {
 
-    const request = axios.get(`${URL}${option}`)
-    return{
-    type: 'TODO_SEARCHED',
-    payload: request
-    } 
+    return(dispatch) => {
+        dispatch({type: 'OPTION_CHANGED',payload: event.target.value})
+        dispatch(search())
+    }
 }
 
-export const filt = (option) => {
-
-    const request = axios.get(`${URL}${option}`)
-    console.log('request')
-    console.log(option)
-    return{
-    type: 'TODO_FILTER',
-    payload: request
-    } 
+export const search = () => {
+    return(dispatch, getState) => {
+    const option = getState().todo.option
+    axios.get(`${URL}${option}`)
+        .then(resp => dispatch({type: 'TODO_SEARCHED', payload: resp}))
+    }
 }
+
 export const clear = () => {
     return {
         type: 'TODO_CLEAR'

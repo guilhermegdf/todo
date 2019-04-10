@@ -8,24 +8,17 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Add from '@material-ui/icons/Add';
 import Close from '@material-ui/icons/Close';
-import { changeDescription, add, clear, search, filt } from './actions'
+import { changeDescription, changeOption, add, clear, search } from './actions'
 
 class TodoForm extends Component {
-    
-  state = {option: ''}
 
   componentWillMount() {
     this.props.search()
   }
-
-  handleChange = event => {
-    this.setState({ ...this.state, option: event.target.value })
-    this.props.search(event.target.value)
-  };
  
   render(){
 
-      const { add, clear, description } = this.props
+      const { add, clear, description, option } = this.props
 
       return (
         <div>
@@ -66,17 +59,17 @@ class TodoForm extends Component {
           </Grid>
       </Grid>
         <Select
-          value={this.state.option}
-          onChange={this.handleChange}
+          value={option}
+          onChange={this.props.changeOption}
           style={{width:'120px'}}
           displayEmpty
           >
-          <MenuItem value="">
+          <MenuItem value=''>
           <em>None</em>
           </MenuItem>
-          <MenuItem value={"complete"}
+          <MenuItem value="complete"
           >Complete</MenuItem>
-          <MenuItem value={"pending"}
+          <MenuItem value="pending"
           >Pendign</MenuItem>
         </Select>
         </div>
@@ -85,7 +78,7 @@ class TodoForm extends Component {
 
 }
 
-const mapStateToProps = state => ({ description: state.todo.description })
+const mapStateToProps = state => ({ description: state.todo.description, option: state.todo.option })
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ changeDescription, add, clear, search, filt }, dispatch)
+    bindActionCreators({ changeDescription, changeOption, add, clear, search }, dispatch)
 export default connect (mapStateToProps, mapDispatchToProps)(TodoForm)

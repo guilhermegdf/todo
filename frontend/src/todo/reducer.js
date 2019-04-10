@@ -5,9 +5,12 @@ export default (state = INITIAL_STATE, action) => {
 
         case 'DESCRIPTION_CHANGED':
             return { ...state, description: action.payload }
-            
+
+        case 'OPTION_CHANGED':
+            return { ...state, option: action.payload }
+
         case 'TODO_CLEAR':
-            return { ...state, description: '' }
+            return { ...state, description: '', option: '' }
 
         case 'TODO_SEARCHED':
             return { ...state, list: action.payload.data }
