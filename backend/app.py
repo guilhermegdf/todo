@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 api = Api(app)
 
-api.add_resource(Todo, '/todo')
+api.add_resource(Todo, '/todo/')
 api.add_resource(TodoChange, '/todo/<int:id>')
 api.add_resource(TodoList, '/todo/<status>')
 

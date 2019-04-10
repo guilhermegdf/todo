@@ -1,24 +1,34 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Add from '@material-ui/icons/Add';
 import Close from '@material-ui/icons/Close';
-import { changeDescription, add, clear, search } from './actions'
+import { changeDescription, add, clear, search, filt } from './actions'
 
 class TodoForm extends Component {
     
+  state = {option: ''}
+
   componentWillMount() {
     this.props.search()
   }
 
+  handleChange = event => {
+    this.setState({ ...this.state, option: event.target.value })
+    this.props.search(event.target.value)
+  };
+ 
   render(){
 
       const { add, clear, description } = this.props
 
       return (
+        <div>
           <Grid container spacing={24}>
           <Grid item xs={12} sm={10} md={10}>
             <TextField
@@ -55,6 +65,21 @@ class TodoForm extends Component {
             </Button>
           </Grid>
       </Grid>
+        <Select
+          value={this.state.option}
+          onChange={this.handleChange}
+          style={{width:'120px'}}
+          displayEmpty
+          >
+          <MenuItem value="">
+          <em>None</em>
+          </MenuItem>
+          <MenuItem value={"complete"}
+          >Complete</MenuItem>
+          <MenuItem value={"pending"}
+          >Pendign</MenuItem>
+        </Select>
+        </div>
       )
   }
 
@@ -62,5 +87,5 @@ class TodoForm extends Component {
 
 const mapStateToProps = state => ({ description: state.todo.description })
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ changeDescription, add, clear, search }, dispatch)
+    bindActionCreators({ changeDescription, add, clear, search, filt }, dispatch)
 export default connect (mapStateToProps, mapDispatchToProps)(TodoForm)

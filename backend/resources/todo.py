@@ -17,7 +17,8 @@ class Todo(Resource):
         todo_list = TodoModel.get_all()
         schema = TodoSchema(many=True)
         res = schema.dump(todo_list)
-        return custom_response({'response': res}, 200)
+
+        return custom_response(res.data, 200)
 
     def post(self):
         req = request.get_json()
@@ -59,4 +60,4 @@ class TodoList(Resource):
             todo_list = TodoModel.get_all_pending()
 
         res = schema.dump(todo_list)
-        return custom_response({'response': res}, 200)
+        return custom_response(res.data, 200)

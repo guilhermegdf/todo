@@ -19,11 +19,11 @@ const TodoList = props => {
     const list = props.list || []
     
     return (
-        <Table>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell>Descrição</TableCell>
-            <TableCell align="right">Açãos</TableCell>
+            <TableCell align="right">Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -35,21 +35,20 @@ const TodoList = props => {
                 <TableCell align="right">
                 <If teste={!row.status}>
                     <Button
-                    color='success'
                     onClick={() => props.markAsDone(row)}
+                    style={{color:'green'}}
                     >
                     <Done/>
                     </Button>
                 </If>
                 <If teste={row.status}>
                     <Button
-                    color='warning'
                     onClick={() => props.markAsPending(row)}
+                    style={{color:'yellow'}}
                     >
                       <Replay/>
                     </Button>
                     <Button
-                    color='danger'
                     onClick={() => props.remove(row)}
                     >
                     <Delete/>
