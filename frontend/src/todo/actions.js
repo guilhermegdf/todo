@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = 'https://backend-todo-api.herokuapp.com/todo/'
+const URL = process.env.REACT_APP_API_URL
 
 export const changeDescription = event => ({
 
